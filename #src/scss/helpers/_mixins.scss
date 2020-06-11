@@ -1,0 +1,23 @@
+// MIXINS
+
+// Gradients
+@mixin gradient-horizontal($top, $bottom) {
+    background: $top;
+    background: linear-gradient(to bottom, $top 0%, $bottom 100%);
+}
+
+@mixin gradient-vertical($left, $right) {
+    background: $right;
+    background: linear-gradient(to right, $left 0%, $right 100%);
+}
+
+// Fonts
+@mixin font($font_name, $file_name, $weight, $style) {
+    @font-face {
+        font-family: $font_name;
+        font-display: swap;
+        src: url("../fonts/#{$file_name}.woff") format("woff"), url("../fonts/#{$file_name}.woff2") format("woff2");
+        font-weight: #{$weight};
+        font-style: #{$style};
+    }
+}
