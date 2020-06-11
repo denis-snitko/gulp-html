@@ -7,16 +7,16 @@ let fs = require('fs');
 let path = {
     build: {
         html: projectFolder + "/",
-        css: projectFolder + "/css/",
-        js: projectFolder + "/js/",
-        img: projectFolder + "/img/",
-        fonts: projectFolder + "/fonts/"
+        css: projectFolder + "/assets/css/",
+        js: projectFolder + "/assets/js/",
+        img: projectFolder + "/assets/img/",
+        fonts: projectFolder + "/assets/fonts/"
     },
 
     src: {
         html: [sourceFolder + "/*.html", "!" + sourceFolder + "/_*.html"],
         css: sourceFolder + "/scss/main.scss",
-        js: sourceFolder + "/js/script.js",
+        js: sourceFolder + "/js/*.js",
         img: sourceFolder + "/img/**/*.{jpg,png,svg,gif,ico,webp}",
         fonts: sourceFolder + "/fonts/*.ttf"
     },
