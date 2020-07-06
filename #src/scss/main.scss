@@ -1,19 +1,21 @@
-/* HELPERS */
 @import "helpers/variables";
 @import "helpers/mixins";
 @import "helpers/functions";
 
-
-/* VENDORS */
 @import "vendor/vendors";
 
-
-/* BASE */
+/* Fonts */
 @import "base/fonts";
+/* End Fonts */
+
+/* Typography */
 @import "base/typography";
-// @import "base/base";
+/* End Typography */
 
+/* Base styles */
+@import "base/base";
+/* End Base styles */
 
-
-/* MODULES */
+/* MAIN STYLES */
 @import "../modules/modules";
+/* END MAIN STYLES */

@@ -26,6 +26,8 @@
     "stylelint-order": "^4.1.0"
   },
   "dependencies": {
-    "smart-grid": "^2.1.2"
+    "smart-grid": "^2.1.2",
+    "jquery": "^3.5.1",
+    "swiper": "^5.4.5"
   }
 }

@@ -1,4 +1,9 @@
-// VENDORS
-
+/* Normalize */
 @import "./import/normalize";
+/* End Normalize */
+
+/* Swiper */
+@import "../../../node_modules/swiper/src/swiper.scss";
+/* End Swiper */
+
 @import "./import/smart-grid";
