@@ -1,5 +1,5 @@
 
-let projectFolder = require("path").basename(__dirname);
+let projectFolder = require("path").basename("docs");
 let sourceFolder = "#src";
 
 let fs = require('fs');
@@ -7,10 +7,10 @@ let fs = require('fs');
 let path = {
     build: {
         html: projectFolder + "/",
-        css: projectFolder + "/assets/css/",
-        js: projectFolder + "/assets/js/",
-        img: projectFolder + "/assets/img/",
-        fonts: projectFolder + "/assets/fonts/"
+        css: projectFolder + "/css/",
+        js: projectFolder + "/js/",
+        img: projectFolder + "/img/",
+        fonts: projectFolder + "/fonts/"
     },
 
     src: {
