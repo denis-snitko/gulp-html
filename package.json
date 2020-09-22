@@ -4,12 +4,12 @@
   "description": "gulp-html-2020",
   "main": "index.html",
   "scripts": {
-    "start dev": "gulp"
+    "dev": "gulp"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.26.12",
     "del": "^5.1.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
@@ -24,8 +24,8 @@
     "gulp-uglify-es": "^2.0.0"
   },
   "dependencies": {
-    "smart-grid": "^2.1.2",
     "jquery": "^3.5.1",
+    "smart-grid": "^2.1.2",
     "swiper": "^5.4.5"
   }
 }
