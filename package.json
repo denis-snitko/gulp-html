@@ -4,7 +4,7 @@
   "description": "gulp-html-2020",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start dev": "gulp"
   },
   "author": "",
   "license": "ISC",
@@ -21,9 +21,7 @@
     "gulp-sass": "^4.1.0",
     "gulp-ttf2woff": "^1.1.1",
     "gulp-ttf2woff2": "^3.0.0",
-    "gulp-uglify-es": "^2.0.0",
-    "stylelint": "^13.6.0",
-    "stylelint-order": "^4.1.0"
+    "gulp-uglify-es": "^2.0.0"
   },
   "dependencies": {
     "smart-grid": "^2.1.2",
