@@ -1,21 +1,82 @@
 // Gradients
 @mixin gradient-horizontal($top, $bottom) {
-    background: $top;
-    background: linear-gradient(to bottom, $top 0%, $bottom 100%);
+  background: $top;
+  background: linear-gradient(to bottom, $top 0%, $bottom 100%);
 }
 
 @mixin gradient-vertical($left, $right) {
-    background: $right;
-    background: linear-gradient(to right, $left 0%, $right 100%);
+  background: $right;
+  background: linear-gradient(to right, $left 0%, $right 100%);
 }
 
 // Fonts
 @mixin font($font_name, $file_name, $weight, $style) {
-    @font-face {
-        font-family: $font_name;
-        font-display: swap;
-        src: url("../fonts/#{$file_name}.woff") format("woff"), url("../fonts/#{$file_name}.woff2") format("woff2");
-        font-weight: #{$weight};
-        font-style: #{$style};
+  @font-face {
+    font-family: $font_name;
+    font-display: swap;
+    src: url("../fonts/#{$file_name}.woff") format("woff"), url("../fonts/#{$file_name}.woff2") format("woff2");
+    font-weight: #{$weight};
+    font-style: #{$style};
+  }
+}
+
+// fadeToggle
+
+@mixin hide($delay) {
+  visibility: hidden;
+  opacity: 0;
+  transition: $delay visibility, $delay opacity;
+}
+
+@mixin show() {
+  visibility: visible;
+  opacity: 1;
+}
+
+@mixin dispalyNone($delay) {
+  @keyframes displayNone {
+    0% {
+      visibility: visible;
+      opacity: 1;
+      height: 100%;
     }
+
+    99% {
+      visibility: hidden;
+      opacity: 0;
+      height: 0;
+    }
+
+    100% {
+      visibility: hidden;
+      opacity: 0;
+      height: 0;
+      display: none;
+    }
+  }
+  animation: displayNone $delay forwards;
+}
+
+@mixin dispalyBlock($delay) {
+  @keyframes displayBlock {
+    0% {
+      visibility: hidden;
+      opacity: 0;
+      height: 0;
+      // display: block;
+    }
+
+    99% {
+      visibility: hidden;
+      opacity: 0;
+      height: 0;
+    }
+
+    100% {
+      visibility: visible;
+      opacity: 1;
+      height: 100%;
+    }
+  }
+  animation: displayBlock $delay forwards;
 }
