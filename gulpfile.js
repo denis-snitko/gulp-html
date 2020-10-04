@@ -17,7 +17,8 @@ let path = {
         html: [sourceFolder + "/*.html", "!" + sourceFolder + "/_*.html"],
         css: sourceFolder + "/scss/main.scss",
         js: sourceFolder + "/js/*.js",
-        img: sourceFolder + "/img/**/*.{jpg,png,svg,gif,ico,webp}",
+        img: sourceFolder + "/img/**/*.{jpg,png,gif,ico,webp}",
+        svg: sourceFolder + "/img/**/*.svg",
         fonts: sourceFolder + "/fonts/*.ttf"
     },
 
@@ -25,7 +26,8 @@ let path = {
         html: sourceFolder + "/**/*.html",
         css: sourceFolder + "/**/*.scss",
         js: sourceFolder + "/**/*.js",
-        img: sourceFolder + "/img/**/*.{jpg,png,svg,gif,ico,webp}",
+        img: sourceFolder + "/img/**/*.{jpg,png,gif,ico,webp}",
+        svg: sourceFolder + "/img/**/*.svg",
     },
 
     clean: "./" + projectFolder + "/"
@@ -122,6 +124,12 @@ function img() {
         .pipe(browsersync.stream())
 }
 
+function svg() {
+    return src(path.src.svg)
+        .pipe(dest(path.build.img))
+        .pipe(browsersync.stream())
+}
+
 function fontsStyle() { //gulp fontsStyle
 
     let fileContent = fs.readFileSync(sourceFolder + '/scss/base/_fonts.scss');
@@ -187,6 +195,7 @@ function watchFiles() {
     gulp.watch([path.watch.css], css);
     gulp.watch([path.watch.js], js);
     gulp.watch([path.watch.img], img);
+    gulp.watch([path.watch.svg], svg);
 }
 
 function fonts() {
@@ -202,13 +211,14 @@ function clean() {
     return del(path.clean);
 }
 
-let build = gulp.series(clean, grid, gulp.parallel(fonts, html, css, js, img));
+let build = gulp.series(clean, grid, gulp.parallel(fonts, html, css, js, svg, img));
 let watch = gulp.parallel(build, watchFiles, browserSync);
 
 exports.html = html;
 exports.css = css;
 exports.js = js;
 exports.img = img;
+exports.svg = svg;
 exports.fonts = fonts;
 exports.fontsStyle = fontsStyle;
 exports.build = build;
