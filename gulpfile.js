@@ -43,6 +43,7 @@ let cleanCss = require('gulp-clean-css');
 let rename = require('gulp-rename');
 let uglify = require('gulp-uglify-es').default;
 let imagemin = require('gulp-imagemin');
+let tinify = require('gulp-tinify');
 let ttf2woff = require('gulp-ttf2woff');
 let ttf2woff2 = require('gulp-ttf2woff2');
 
@@ -109,19 +110,19 @@ function js() {
 
 function img() {
     return src(path.src.img)
-        .pipe(
-            imagemin({
-                progressive: true,
-                svgoPlugins: [{ removeViewBox: false }],
-                interlaced: true,
-                optimizationLevel: 3 // 0 to 7
-            })
-        )
+        // .pipe(
+        //   imagemin({
+        //     // progressive: true,
+        //     // interlaced: true,
+        //     optimizationLevel: 4 // 0 to 7
+        //   })
+        // )
+        .pipe(tinify('GB8W9Gddw3tr0GRgMK5sX0rt7g2tVkQV'))
         .pipe(dest(path.build.img))
         .pipe(browsersync.stream())
 }
 
-function fontsStyle() {
+function fontsStyle() { //gulp fontsStyle
 
     let fileContent = fs.readFileSync(sourceFolder + '/scss/base/_fonts.scss');
     if (fileContent == '') {
@@ -158,7 +159,7 @@ const options = {
     },
     breakPoints: {
         xs: {
-            width: "370px" // 20rem
+            width: "360px" // 20rem
         },
         sm: {
             width: "576px" // 36rem
@@ -201,7 +202,7 @@ function clean() {
     return del(path.clean);
 }
 
-let build = gulp.series(clean, grid, gulp.parallel(html, css, js, img, fonts), fontsStyle);
+let build = gulp.series(clean, grid, gulp.parallel(fonts, html, css, js, img));
 let watch = gulp.parallel(build, watchFiles, browserSync);
 
 exports.html = html;
