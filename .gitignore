@@ -6,6 +6,7 @@
 .vscode
 .github
 .env
+.idea
 ehthumbs.db
 Thumbs.db
 node_modules
