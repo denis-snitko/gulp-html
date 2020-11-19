@@ -120,10 +120,12 @@ function img() {
         //     optimizationLevel: 4 // 0 to 7
         //   })
         // )
-        // .pipe(tinify('GB8W9Gddw3tr0GRgMK5sX0rt7g2tVkQV'))
+        .pipe(tinify('GB8W9Gddw3tr0GRgMK5sX0rt7g2tVkQV'))
+        .pipe(dest(path.build.img))
 
         .pipe(webp())
         .pipe(dest(path.build.img))
+
         .pipe(browsersync.stream())
 }
 
