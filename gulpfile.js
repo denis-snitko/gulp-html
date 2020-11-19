@@ -48,6 +48,7 @@ let imagemin = require('gulp-imagemin');
 let tinify = require('gulp-tinify');
 let ttf2woff = require('gulp-ttf2woff');
 let ttf2woff2 = require('gulp-ttf2woff2');
+const webp = require('gulp-webp');
 
 
 function browserSync() {
@@ -119,7 +120,9 @@ function img() {
         //     optimizationLevel: 4 // 0 to 7
         //   })
         // )
-        .pipe(tinify('GB8W9Gddw3tr0GRgMK5sX0rt7g2tVkQV'))
+        // .pipe(tinify('GB8W9Gddw3tr0GRgMK5sX0rt7g2tVkQV'))
+
+        .pipe(webp())
         .pipe(dest(path.build.img))
         .pipe(browsersync.stream())
 }
