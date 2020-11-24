@@ -121,6 +121,11 @@ a:hover {
     text-decoration: none;
 }
 
+a {
+    color: inherit;
+    transition: $base-transition;
+}
+
 input,
 button,
 textarea {
