@@ -1,24 +1,32 @@
 <!DOCTYPE html>
 <html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/main.css" />
     <title>Сборка Gulp</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="main-body">
-        @@include('modules/header/_header.html')
-        <div class="main-content">
-            main content
+      @@include('modules/header/_header.html')
+      <div class="main-content">
+        <div class="container">
+          <p>main content</p>
+          <picture>
+            <source srcset="./img/jpg.webp" type="image/webp" />
+            <img src="./img/jpg.jpg" alt="#" />
+          </picture>
+          <picture>
+            <source srcset="./img/png.webp" type="image/webp" />
+            <img src="./img/png.png" alt="#" />
+          </picture>
         </div>
-        <footer>footer</footer>
+      </div>
+      <footer>footer</footer>
     </div>
     <script src="./js/vendors.js"></script>
     <script src="./js/main.js"></script>
-</body>
-
+  </body>
 </html>
