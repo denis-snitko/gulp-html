@@ -1,9 +1,40 @@
-let projectFolder = require('path').basename('docs')
-let sourceFolder = '#src'
+const projectFolder = require('path').basename('docs')
+const sourceFolder = '#src'
 
-let fs = require('fs')
+// Smartgrid options
+const options = {
+  outputStyle: 'scss',
+  filename: '_smart-grid',
+  columns: 12, // number of grid columns
+  offset: '30px', // gutter width - 1.875rem
+  mobileFirst: false,
+  mixinNames: {
+    container: 'container',
+  },
+  container: {
+    maxWidth: '1170px',
+    fields: '15px', // side fields - 0.9375rem
+  },
+  breakPoints: {
+    xs: {
+      width: '360px', // 20rem
+    },
+    sm: {
+      width: '576px', // 36rem
+    },
+    md: {
+      width: '768px', // 48rem
+    },
+    lg: {
+      width: '992px', // 62rem
+    },
+    xl: {
+      width: '1200px', // 75rem
+    },
+  },
+}
 
-let path = {
+const path = {
   build: {
     html: projectFolder + '/',
     css: projectFolder + '/css/',
@@ -16,7 +47,11 @@ let path = {
     html: [sourceFolder + '/*.html', '!' + sourceFolder + '/_*.html'],
     css: sourceFolder + '/scss/main.scss',
     js: sourceFolder + '/js/*.js',
-    img: sourceFolder + '/img/**/*.{jpg,png,gif,ico,webp}',
+    img: [
+      sourceFolder + '/img/**/*.{jpg,png,gif,ico,webp}',
+      '!' + sourceFolder + '/img/icons/*.*',
+    ],
+    icons: sourceFolder + '/img/icons/*.*',
     svg: sourceFolder + '/img/**/*.svg',
     fonts: sourceFolder + '/fonts/*.ttf',
   },
@@ -26,28 +61,30 @@ let path = {
     css: sourceFolder + '/**/*.scss',
     js: sourceFolder + '/**/*.js',
     img: sourceFolder + '/img/**/*.{jpg,png,gif,ico,webp}',
+    icons: sourceFolder + '/img/icons/*.*',
     svg: sourceFolder + '/img/**/*.svg',
   },
 
   clean: './' + projectFolder + '/',
 }
 
-let { src, dest } = require('gulp')
-let gulp = require('gulp')
-let browsersync = require('browser-sync').create()
-let fileinclude = require('gulp-file-include')
-let del = require('del')
-let scss = require('gulp-sass')
-let autoprefixer = require('gulp-autoprefixer')
-let groupMedia = require('gulp-group-css-media-queries')
-let cleanCss = require('gulp-clean-css')
-let rename = require('gulp-rename')
-let uglify = require('gulp-uglify-es').default
-let imagemin = require('gulp-imagemin')
-let tinify = require('gulp-tinify')
-let ttf2woff = require('gulp-ttf2woff')
-let ttf2woff2 = require('gulp-ttf2woff2')
+const { src, dest } = require('gulp')
+const gulp = require('gulp')
+const browsersync = require('browser-sync').create()
+const fileinclude = require('gulp-file-include')
+const del = require('del')
+const scss = require('gulp-sass')
+const autoprefixer = require('gulp-autoprefixer')
+const groupMedia = require('gulp-group-css-media-queries')
+const cleanCss = require('gulp-clean-css')
+const rename = require('gulp-rename')
+const uglify = require('gulp-uglify-es').default
+const imagemin = require('gulp-imagemin')
+const tinify = require('gulp-tinify')
+const ttf2woff = require('gulp-ttf2woff')
+const ttf2woff2 = require('gulp-ttf2woff2')
 const webp = require('gulp-webp')
+const smartGrid = require('smart-grid')
 
 function browserSync() {
   browsersync.init({
@@ -118,8 +155,8 @@ function img() {
       //   imagemin({
       //     // progressive: true,
       //     // interlaced: true,
-      //     optimizationLevel: 4 // 0 to 7
-      //   })
+      //     optimizationLevel: 7, // 0 to 7
+      //   }),
       // )
       .pipe(tinify('GB8W9Gddw3tr0GRgMK5sX0rt7g2tVkQV'))
       .pipe(dest(path.build.img))
@@ -135,80 +172,24 @@ function svg() {
   return src(path.src.svg).pipe(dest(path.build.img)).pipe(browsersync.stream())
 }
 
-function fontsStyle() {
-  //gulp fontsStyle
-
-  let fileContent = fs.readFileSync(sourceFolder + '/scss/base/_fonts.scss')
-  if (fileContent == '') {
-    fs.writeFile(sourceFolder + '/scss/base/_fonts.scss', '', cb)
-    return fs.readdir(path.build.fonts, function (err, items) {
-      if (items) {
-        let c_fontname
-        for (var i = 0; i < items.length; i++) {
-          let fontname = items[i].split('.')
-          fontname = fontname[0]
-          if (c_fontname != fontname) {
-            fs.appendFile(
-              sourceFolder + '/scss/base/_fonts.scss',
-              '@include font("' +
-                fontname +
-                '", "' +
-                fontname +
-                '", "400", "normal");\r\n',
-              cb,
-            )
-          }
-          c_fontname = fontname
-        }
-      }
-    })
-  }
+function icons() {
+  return src(path.src.icons)
+    .pipe(tinify('GB8W9Gddw3tr0GRgMK5sX0rt7g2tVkQV'))
+    .pipe(dest(path.build.img + '/icons/'))
+    .pipe(browsersync.stream())
 }
 
-const smartGrid = require('smart-grid')
-const options = {
-  outputStyle: 'scss',
-  filename: '_smart-grid',
-  columns: 12, // number of grid columns
-  offset: '30px', // gutter width - 1.875rem
-  mobileFirst: false,
-  mixinNames: {
-    container: 'container',
-  },
-  container: {
-    maxWidth: '1170px',
-    fields: '15px', // side fields - 0.9375rem
-  },
-  breakPoints: {
-    xs: {
-      width: '360px', // 20rem
-    },
-    sm: {
-      width: '576px', // 36rem
-    },
-    md: {
-      width: '768px', // 48rem
-    },
-    lg: {
-      width: '992px', // 62rem
-    },
-    xl: {
-      width: '1200px', // 75rem
-    },
-  },
-}
 function grid(done) {
   smartGrid('./#src/scss/vendor/import/', options)
   done()
 }
-
-function cb() {}
 
 function watchFiles() {
   gulp.watch([path.watch.html], html)
   gulp.watch([path.watch.css], css)
   gulp.watch([path.watch.js], js)
   gulp.watch([path.watch.img], img)
+  gulp.watch([path.watch.icons], icons)
   gulp.watch([path.watch.svg], svg)
 }
 
@@ -223,18 +204,20 @@ function clean() {
 
 let build = gulp.series(
   clean,
+  fonts,
   grid,
-  gulp.parallel(fonts, html, css, js, svg, img),
+  gulp.parallel(html, css, js, img, icons, svg),
 )
+
 let watch = gulp.parallel(build, watchFiles, browserSync)
 
 exports.html = html
 exports.css = css
 exports.js = js
 exports.img = img
+exports.icons = icons
 exports.svg = svg
 exports.fonts = fonts
-exports.fontsStyle = fontsStyle
 exports.build = build
 exports.watch = watch
 exports.default = watch

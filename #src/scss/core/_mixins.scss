@@ -14,9 +14,10 @@
   @font-face {
     font-family: $font_name;
     font-display: swap;
-    src: url("../fonts/#{$file_name}.woff") format("woff"), url("../fonts/#{$file_name}.woff2") format("woff2");
-    font-weight: #{$weight};
+    src: url('../fonts/#{$file_name}.woff') format('woff'),
+      url('../fonts/#{$file_name}.woff2') format('woff2');
     font-style: #{$style};
+    font-weight: #{$weight};
   }
 }
 
@@ -37,21 +38,21 @@
   @keyframes displayNone {
     0% {
       visibility: visible;
-      opacity: 1;
       height: 100%;
+      opacity: 1;
     }
 
     99% {
       visibility: hidden;
-      opacity: 0;
       height: 0;
+      opacity: 0;
     }
 
     100% {
-      visibility: hidden;
-      opacity: 0;
-      height: 0;
       display: none;
+      visibility: hidden;
+      height: 0;
+      opacity: 0;
     }
   }
   animation: displayNone $delay forwards;
@@ -61,21 +62,21 @@
   @keyframes displayBlock {
     0% {
       visibility: hidden;
-      opacity: 0;
       height: 0;
+      opacity: 0;
       // display: block;
     }
 
     99% {
       visibility: hidden;
-      opacity: 0;
       height: 0;
+      opacity: 0;
     }
 
     100% {
       visibility: visible;
-      opacity: 1;
       height: 100%;
+      opacity: 1;
     }
   }
   animation: displayBlock $delay forwards;

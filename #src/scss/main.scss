@@ -1,21 +1,21 @@
-@import "helpers/variables";
-@import "helpers/mixins";
-@import "helpers/functions";
+@import 'core/variables';
+@import 'core/mixins';
+@import 'core/functions';
 
-@import "vendor/vendors";
+@import 'vendor/vendors';
 
 /* Fonts */
-@import "base/fonts";
+@import 'core/fonts';
 /* End Fonts */
 
 /* Typography */
-@import "base/typography";
+@import 'core/typography';
 /* End Typography */
 
 /* Base styles */
-@import "base/base";
+@import 'core/base';
 /* End Base styles */
 
 /* MAIN STYLES */
-@import "../modules/modules";
+@import '../modules/modules';
 /* END MAIN STYLES */

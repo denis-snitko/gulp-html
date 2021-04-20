@@ -1,9 +1,9 @@
 /* Normalize */
-@import "./import/normalize";
+@import './import/normalize';
 /* End Normalize */
 
-/* Swiper */
-@import "../../../node_modules/swiper/swiper-bundle";
-/* End Swiper */
+@import './import/smart-grid';
 
-@import "./import/smart-grid";
+/* Swiper */
+// @import "../../../node_modules/swiper/swiper-bundle";
+/* End Swiper */
