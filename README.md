@@ -1,5 +1,5 @@
-# gulp-html-2020
-Сборщик GULP+SCSS+HTML
+# gulp-html
+Сборщик
 
-1. Скачать зависимости - npm i
-2. Запуск - gulp
+1. Скачать зависимости - yarn
+2. Запуск - yarn dev
