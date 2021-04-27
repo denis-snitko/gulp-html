@@ -76,10 +76,11 @@ const del = require('del')
 const scss = require('gulp-sass')
 const autoprefixer = require('gulp-autoprefixer')
 const groupMedia = require('gulp-group-css-media-queries')
-const cleanCss = require('gulp-clean-css')
-const rename = require('gulp-rename')
-const uglify = require('gulp-uglify-es').default
-const imagemin = require('gulp-imagemin')
+// const cleanCss = require('gulp-clean-css')
+// const rename = require('gulp-rename')
+// const uglify = require('gulp-uglify-es').default
+// const imagemin = require('gulp-imagemin')
+const changed = require('gulp-changed')
 const tinify = require('gulp-tinify')
 const ttf2woff = require('gulp-ttf2woff')
 const ttf2woff2 = require('gulp-ttf2woff2')
@@ -130,6 +131,39 @@ function css() {
   )
 }
 
+function img() {
+  return (
+    src(path.src.img)
+      // .pipe(
+      //   imagemin({
+      //     // progressive: true,
+      //     // interlaced: true,
+      //     optimizationLevel: 7, // 0 to 7
+      //   }),
+      // )
+      .pipe(changed(path.build.img))
+      .pipe(tinify('GB8W9Gddw3tr0GRgMK5sX0rt7g2tVkQV'))
+      .pipe(dest(path.build.img))
+
+      .pipe(webp())
+      .pipe(dest(path.build.img))
+
+      .pipe(browsersync.stream())
+  )
+}
+
+function icons() {
+  return src(path.src.icons)
+    .pipe(changed(path.build.img + '/icons/'))
+    .pipe(tinify('GB8W9Gddw3tr0GRgMK5sX0rt7g2tVkQV'))
+    .pipe(dest(path.build.img + '/icons/'))
+    .pipe(browsersync.stream())
+}
+
+function svg() {
+  return src(path.src.svg).pipe(dest(path.build.img)).pipe(browsersync.stream())
+}
+
 function js() {
   return (
     src(path.src.js)
@@ -146,37 +180,6 @@ function js() {
       .pipe(dest(path.build.js))
       .pipe(browsersync.stream())
   )
-}
-
-function img() {
-  return (
-    src(path.src.img)
-      // .pipe(
-      //   imagemin({
-      //     // progressive: true,
-      //     // interlaced: true,
-      //     optimizationLevel: 7, // 0 to 7
-      //   }),
-      // )
-      .pipe(tinify('GB8W9Gddw3tr0GRgMK5sX0rt7g2tVkQV'))
-      .pipe(dest(path.build.img))
-
-      .pipe(webp())
-      .pipe(dest(path.build.img))
-
-      .pipe(browsersync.stream())
-  )
-}
-
-function svg() {
-  return src(path.src.svg).pipe(dest(path.build.img)).pipe(browsersync.stream())
-}
-
-function icons() {
-  return src(path.src.icons)
-    .pipe(tinify('GB8W9Gddw3tr0GRgMK5sX0rt7g2tVkQV'))
-    .pipe(dest(path.build.img + '/icons/'))
-    .pipe(browsersync.stream())
 }
 
 function grid(done) {
