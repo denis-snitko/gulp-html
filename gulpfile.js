@@ -86,6 +86,9 @@ const ttf2woff = require('gulp-ttf2woff')
 const ttf2woff2 = require('gulp-ttf2woff2')
 const webp = require('gulp-webp')
 const smartGrid = require('smart-grid')
+const webpack = require('webpack')
+const webpackStream = require('webpack-stream')
+const webpackConfig = require('./webpack.config.js')
 
 function browserSync() {
   browsersync.init({
@@ -164,22 +167,29 @@ function svg() {
   return src(path.src.svg).pipe(dest(path.build.img)).pipe(browsersync.stream())
 }
 
+// function js() {
+//   return (
+//     src(path.src.js)
+//       .pipe(fileinclude())
+//       .pipe(dest(path.build.js))
+// .pipe(
+//     uglify()
+// )
+// .pipe(
+//     rename({
+//         extname: ".min.js"
+//     })
+// )
+//       .pipe(dest(path.build.js))
+//       .pipe(browsersync.stream())
+//   )
+// }
+
 function js() {
-  return (
-    src(path.src.js)
-      .pipe(fileinclude())
-      .pipe(dest(path.build.js))
-      // .pipe(
-      //     uglify()
-      // )
-      // .pipe(
-      //     rename({
-      //         extname: ".min.js"
-      //     })
-      // )
-      .pipe(dest(path.build.js))
-      .pipe(browsersync.stream())
-  )
+  return src(path.src.js)
+    .pipe(webpackStream(webpackConfig), webpack)
+    .pipe(gulp.dest(path.build.js))
+    .pipe(browsersync.stream())
 }
 
 function grid(done) {
