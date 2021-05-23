@@ -5,25 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="./css/main.css" />
-    <title>Сборка Gulp</title>
+    <title>Сборка Gulp для верстки 2021</title>
   </head>
 
   <body>
     <div class="main-body">
       @@include('modules/header/_header.html')
-      <div class="main-content">
-        <div class="container">
+      <main class="main-content">
+        <div class="container-full">
           <p>main content</p>
-          <picture>
-            <source srcset="./img/jpg.webp" type="image/webp" />
-            <img src="./img/jpg.jpg" alt="#" />
-          </picture>
-          <picture>
-            <source srcset="./img/png.webp" type="image/webp" />
-            <img src="./img/png.png" alt="#" />
-          </picture>
+          <img src="./img/jpg.jpg" alt="#" />
+          <p>Hello</p>
+          <img src="./img/png.png" alt="#" />
         </div>
-      </div>
+      </main>
       @@include('modules/footer/_footer.html')
     </div>
     <script src="./js/vendors.js"></script>

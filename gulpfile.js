@@ -6,30 +6,36 @@ const options = {
   outputStyle: 'scss',
   filename: '_smart-grid',
   columns: 12, // number of grid columns
-  offset: '30px', // gutter width - 1.875rem
+  offset: '30px', 
   mobileFirst: false,
   mixinNames: {
     container: 'container',
   },
   container: {
-    maxWidth: '1170px',
-    fields: '15px', // side fields - 0.9375rem
+    maxWidth: `1430px`,
+    fields: '15px', 
   },
   breakPoints: {
+    xxs: {
+      width: '375px', 
+    },
     xs: {
-      width: '360px', // 20rem
+      width: '414px', 
     },
     sm: {
-      width: '576px', // 36rem
+      width: '576px', 
     },
     md: {
-      width: '768px', // 48rem
+      width: '768px', 
     },
     lg: {
-      width: '992px', // 62rem
+      width: '992px', 
     },
     xl: {
-      width: '1200px', // 75rem
+      width: '1200px',
+    },
+    xxl: {
+      width: '1400px',
     },
   },
 }
@@ -76,16 +82,15 @@ const del = require('del')
 const scss = require('gulp-sass')
 const autoprefixer = require('gulp-autoprefixer')
 const groupMedia = require('gulp-group-css-media-queries')
-// const cleanCss = require('gulp-clean-css')
-// const rename = require('gulp-rename')
-// const uglify = require('gulp-uglify-es').default
-// const imagemin = require('gulp-imagemin')
+const cleanCss = require('gulp-clean-css')
+const rename = require('gulp-rename')
+const uglify = require('gulp-uglify-es').default
 const changed = require('gulp-changed')
 const tinify = require('gulp-tinify')
-const ttf2woff = require('gulp-ttf2woff')
 const ttf2woff2 = require('gulp-ttf2woff2')
 const webp = require('gulp-webp')
 const smartGrid = require('smart-grid')
+
 
 function browserSync() {
   browsersync.init({
@@ -105,49 +110,42 @@ function html() {
 }
 
 function css() {
-  return (
-    src(path.src.css)
-      .pipe(
-        scss({
-          outputStyle: 'expanded',
-        }),
-      )
-      .pipe(groupMedia())
-      .pipe(
-        autoprefixer({
-          overrideBrowserslist: ['last 5 versions'],
-          cascade: true,
-        }),
-      )
-      .pipe(dest(path.build.css))
-      // .pipe(cleanCss())
-      // .pipe(
-      //     rename({
-      //         extname: ".min.css"
-      //     })
-      // )
-      // .pipe(dest(path.build.css))
-      .pipe(browsersync.stream())
-  )
+  return src(path.src.css)
+    .pipe(
+      scss({
+        outputStyle: 'expanded',
+      }),
+    )
+    .pipe(groupMedia())
+    .pipe(
+      autoprefixer({
+        overrideBrowserslist: ['last 5 versions'],
+        cascade: true,
+      }),
+    )
+    .pipe(dest(path.build.css))
+    .pipe(cleanCss())
+    // Раскомментировать, если надо min.css
+    // .pipe(
+    //   rename({
+    //     extname: '.min.css',
+    //   }),
+    // )
+    // .pipe(dest(path.build.css))
+    .pipe(browsersync.stream())
 }
 
 function img() {
   return (
     src(path.src.img)
-      // .pipe(
-      //   imagemin({
-      //     // progressive: true,
-      //     // interlaced: true,
-      //     optimizationLevel: 7, // 0 to 7
-      //   }),
-      // )
       .pipe(changed(path.build.img))
-      .pipe(tinify('GB8W9Gddw3tr0GRgMK5sX0rt7g2tVkQV'))
-      .pipe(dest(path.build.img))
+      // Сжатие картинок с помощью сервисв tinyPNG
+      // .pipe(tinify('GB8W9Gddw3tr0GRgMK5sX0rt7g2tVkQV'))
+      // .pipe(dest(path.build.img))
 
-      .pipe(webp())
+      // Делаем WEBP
+      // .pipe(webp())
       .pipe(dest(path.build.img))
-
       .pipe(browsersync.stream())
   )
 }
@@ -155,7 +153,8 @@ function img() {
 function icons() {
   return src(path.src.icons)
     .pipe(changed(path.build.img + '/icons/'))
-    .pipe(tinify('GB8W9Gddw3tr0GRgMK5sX0rt7g2tVkQV'))
+    // Делаем WEBP из иконок PNG
+    // .pipe(tinify('GB8W9Gddw3tr0GRgMK5sX0rt7g2tVkQV'))
     .pipe(dest(path.build.img + '/icons/'))
     .pipe(browsersync.stream())
 }
@@ -169,6 +168,8 @@ function js() {
     src(path.src.js)
       .pipe(fileinclude())
       .pipe(dest(path.build.js))
+
+      // Если надо сжать JS
       // .pipe(
       //     uglify()
       // )
@@ -187,6 +188,10 @@ function grid(done) {
   done()
 }
 
+function fonts() {
+  return src(path.src.fonts).pipe(ttf2woff2()).pipe(dest(path.build.fonts))
+}
+
 function watchFiles() {
   gulp.watch([path.watch.html], html)
   gulp.watch([path.watch.css], css)
@@ -196,18 +201,11 @@ function watchFiles() {
   gulp.watch([path.watch.svg], svg)
 }
 
-function fonts() {
-  src(path.src.fonts).pipe(ttf2woff()).pipe(dest(path.build.fonts))
-  return src(path.src.fonts).pipe(ttf2woff2()).pipe(dest(path.build.fonts))
-}
-
 function clean() {
   return del(path.clean)
 }
 
 let build = gulp.series(
-  clean,
-  fonts,
   grid,
   gulp.parallel(html, css, js, img, icons, svg),
 )
@@ -221,6 +219,7 @@ exports.img = img
 exports.icons = icons
 exports.svg = svg
 exports.fonts = fonts
+exports.clean = clean
 exports.build = build
 exports.watch = watch
 exports.default = watch
