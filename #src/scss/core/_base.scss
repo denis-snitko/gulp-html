@@ -11,3 +11,8 @@
 .container {
   @include container();
 }
+
+.container-full {
+  @include container-full();
+  padding: 0;
+}
