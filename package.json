@@ -4,7 +4,7 @@
   "description": "gulp-html-2020",
   "main": "index.html",
   "scripts": {
-    "dev": "gulp clean && gulp fonts && gulp"
+    "start": "gulp clean && gulp fonts && gulp"
   },
   "author": "",
   "license": "ISC",
@@ -22,6 +22,7 @@
     "gulp-stylelint": "^13.0.0",
     "gulp-tinify": "^1.0.2",
     "gulp-ttf2woff2": "^3.0.0",
+    "ttf2woff2": "^4.0.2",
     "gulp-uglify-es": "^2.0.0",
     "gulp-webp": "^4.0.1",
     "stylelint": "^13.7.2",
@@ -32,7 +33,6 @@
   "dependencies": {
     "jquery": "^3.5.1",
     "smart-grid": "^2.1.2",
-    "swiper": "^6.3.2",
-    "ttf2woff2": "^4.0.2"
+    "swiper": "^6.3.2"
   }
 }

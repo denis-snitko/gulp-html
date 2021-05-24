@@ -43,7 +43,7 @@ const options = {
 const path = {
   build: {
     html: projectFolder + '/',
-    css: projectFolder + '/css/',
+    css: projectFolder + '/style/',
     js: projectFolder + '/js/',
     img: projectFolder + '/img/',
     fonts: projectFolder + '/fonts/',
@@ -51,7 +51,7 @@ const path = {
 
   src: {
     html: [sourceFolder + '/*.html', '!' + sourceFolder + '/_*.html'],
-    css: sourceFolder + '/scss/main.scss',
+    css: sourceFolder + '/scss/*.scss',
     js: sourceFolder + '/js/*.js',
     img: [
       sourceFolder + '/img/**/*.{jpg,png,gif,ico,webp}',
@@ -184,7 +184,7 @@ function js() {
 }
 
 function grid(done) {
-  smartGrid('./#src/scss/vendor/import/', options)
+  smartGrid('./#src/scss/vendors', options)
   done()
 }
 

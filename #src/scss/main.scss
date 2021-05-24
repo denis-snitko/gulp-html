@@ -2,7 +2,11 @@
 @import 'core/mixins';
 @import 'core/functions';
 
-@import 'vendor/vendors';
+@import './vendors/smart-grid';
+
+/* Normalize */
+@import './vendors/normalize';
+/* End Normalize */
 
 /* Fonts */
 @import 'core/fonts';
