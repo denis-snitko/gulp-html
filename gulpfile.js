@@ -12,7 +12,7 @@ const options = {
     container: 'container',
   },
   container: {
-    maxWidth: `1430px`,
+    maxWidth: '1440px',
     fields: '15px', 
   },
   breakPoints: {

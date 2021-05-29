@@ -1,4 +1,9 @@
 .header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  padding: 8px;
+  background-color: #ffd2b5;
   &__title {
     font-size: 36px;
   }
