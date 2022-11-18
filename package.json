@@ -4,13 +4,14 @@
   "description": "gulp-html-2020",
   "main": "index.html",
   "scripts": {
-    "start": "gulp clean && gulp fonts && gulp"
+    "start": "engine-version && gulp clean && gulp fonts && gulp"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.26.12",
     "del": "^5.1.0",
+    "engine-version": "^1.0.2",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-changed": "^4.0.2",
