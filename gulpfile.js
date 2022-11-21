@@ -1,44 +1,4 @@
-const projectFolder = require('path').basename('docs')
-const sourceFolder = '#src'
-
-// Smartgrid options
-const options = {
-  outputStyle: 'scss',
-  filename: '_smart-grid',
-  columns: 12, // number of grid columns
-  offset: '30px', 
-  mobileFirst: false,
-  mixinNames: {
-    container: 'container',
-  },
-  container: {
-    maxWidth: '1440px',
-    fields: '15px', 
-  },
-  breakPoints: {
-    xxs: {
-      width: '375px', 
-    },
-    xs: {
-      width: '414px', 
-    },
-    sm: {
-      width: '576px', 
-    },
-    md: {
-      width: '768px', 
-    },
-    lg: {
-      width: '992px', 
-    },
-    xl: {
-      width: '1200px',
-    },
-    xxl: {
-      width: '1400px',
-    },
-  },
-}
+const {projectFolder, sourceFolder, smartGridOptions} = require('./config')
 
 const path = {
   build: {
@@ -87,6 +47,7 @@ const rename = require('gulp-rename')
 const uglify = require('gulp-uglify-es').default
 const changed = require('gulp-changed')
 const tinify = require('gulp-tinify')
+const ttf2woff = require('gulp-ttf2woff')
 const ttf2woff2 = require('gulp-ttf2woff2')
 const webp = require('gulp-webp')
 const smartGrid = require('smart-grid')
@@ -184,11 +145,15 @@ function js() {
 }
 
 function grid(done) {
-  smartGrid('./#src/scss/vendors', options)
+  smartGrid('./#src/scss/vendors', smartGridOptions)
   done()
 }
 
-function fonts() {
+function fontsWoff() {
+  return src(path.src.fonts).pipe(ttf2woff()).pipe(dest(path.build.fonts))
+}
+
+function fontsWoff2() {
   return src(path.src.fonts).pipe(ttf2woff2()).pipe(dest(path.build.fonts))
 }
 
@@ -218,7 +183,8 @@ exports.js = js
 exports.img = img
 exports.icons = icons
 exports.svg = svg
-exports.fonts = fonts
+exports.fontsWoff = fontsWoff
+exports.fontsWoff2 = fontsWoff2
 exports.clean = clean
 exports.build = build
 exports.watch = watch
