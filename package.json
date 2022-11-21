@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "gulp-html-2020",
   "main": "index.html",
+   "engines": {
+    "node": "14.19.3"
+  },
   "scripts": {
     "start": "engine-version && gulp clean && gulp fonts && gulp"
   },
